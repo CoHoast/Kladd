@@ -12,21 +12,22 @@
     <style>
         /* Homepage-specific styles */
         .hero {
-            padding: 140px 0 80px;
+            padding: 160px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(180deg, #0A1628 0%, #0D1B2A 100%);
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 800px;
-            height: 600px;
-            background: radial-gradient(ellipse at center, rgba(64, 200, 121, 0.15) 0%, rgba(66, 125, 255, 0.1) 40%, transparent 70%);
+            width: 1000px;
+            height: 800px;
+            background: radial-gradient(ellipse at center, rgba(22, 153, 137, 0.12) 0%, rgba(38, 121, 254, 0.08) 40%, transparent 70%);
             pointer-events: none;
         }
 
@@ -37,31 +38,38 @@
         .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: var(--primary-glow);
-            border: 1px solid rgba(64, 200, 121, 0.2);
-            padding: 6px 14px;
+            gap: 10px;
+            background: rgba(22, 153, 137, 0.1);
+            border: 1px solid rgba(22, 153, 137, 0.2);
+            padding: 8px 18px;
             border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--primary);
-            margin-bottom: 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1DB8A4;
+            margin-bottom: 32px;
+            letter-spacing: 0.01em;
         }
 
         .hero-eyebrow span {
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
+            width: 8px;
+            height: 8px;
+            background: #169989;
             border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1.1;
+            font-size: 4.25rem;
+            font-weight: 800;
+            line-height: 1.08;
             letter-spacing: -0.03em;
-            margin-bottom: 20px;
-            max-width: 800px;
+            margin-bottom: 24px;
+            max-width: 850px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -345,7 +353,7 @@
             width: 48px;
             height: 48px;
             background: var(--gradient-glow);
-            border: 1px solid rgba(64, 200, 121, 0.2);
+            border: 1px solid rgba(22, 153, 137, 0.2);
             border-radius: 12px;
             display: flex;
             align-items: center;
