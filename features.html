@@ -3,507 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features | Kladd - SOC 2 & HIPAA Compliance Automation</title>
-    <meta name="description" content="Automate evidence collection, generate policies with AI, monitor compliance in real-time, and get audit-ready faster with Kladd.">
+    <title>Features — Kladd</title>
+    <meta name="description" content="Explore Kladd's powerful compliance and security features. AI-powered policy generation, continuous monitoring, secrets management, and more.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #000000;
+            --bg-elevated: #0a0a0a;
+            --bg-card: #111111;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(255, 255, 255, 0.15);
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #00D4AA;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; height: 64px; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 28px; width: auto; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta { display: flex; gap: 12px; }
+        .btn { display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 8px; font-weight: 500; font-size: 0.875rem; text-decoration: none; transition: all 0.15s; border: none; cursor: pointer; }
+        .btn-ghost { background: transparent; color: var(--text-secondary); }
+        .btn-primary { background: var(--text); color: var(--bg); }
+        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border-bright); }
+        .btn-large { padding: 14px 28px; font-size: 0.9375rem; }
+
+        .hero { padding: 160px 0 80px; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 500px; background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0, 212, 170, 0.12) 0%, transparent 70%); pointer-events: none; }
+        .hero .container { position: relative; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 20px; }
+        .hero-subtitle { font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+
+        .section { padding: 100px 0; }
+        .section-alt { background: var(--bg-elevated); }
+        .section-header { margin-bottom: 48px; }
+        .section-header.center { text-align: center; }
+        .section-eyebrow { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 12px; }
+        .section-title { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .section-desc { font-size: 1rem; color: var(--text-secondary); max-width: 600px; }
+        .section-header.center .section-desc { margin: 0 auto; }
+
+        .feature-block { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 80px 0; border-bottom: 1px solid var(--border); }
+        .feature-block:last-child { border-bottom: none; }
+        .feature-block.reverse { direction: rtl; }
+        .feature-block.reverse > * { direction: ltr; }
+        .feature-content h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; }
+        .feature-content p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7; }
+        .feature-list { list-style: none; }
+        .feature-list li { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 0.9375rem; color: var(--text-secondary); }
+        .feature-list li::before { content: '✓'; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: rgba(0, 212, 170, 0.15); color: var(--accent); border-radius: 50%; font-size: 0.75rem; }
+        .feature-visual { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; min-height: 350px; display: flex; align-items: center; justify-content: center; padding: 32px; }
+
+        .capabilities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .capability-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.2s; }
+        .capability-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+        .capability-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .capability-icon.accent { background: rgba(0, 212, 170, 0.1); }
+        .capability-icon.blue { background: rgba(59, 130, 246, 0.1); }
+        .capability-icon.purple { background: rgba(139, 92, 246, 0.1); }
+        .capability-icon.amber { background: rgba(245, 158, 11, 0.1); }
+        .capability-icon svg { width: 20px; height: 20px; }
+        .capability-icon.accent svg { color: var(--accent); }
+        .capability-icon.blue svg { color: var(--blue); }
+        .capability-icon.purple svg { color: var(--purple); }
+        .capability-icon.amber svg { color: var(--amber); }
+        .capability-title { font-size: 0.9375rem; font-weight: 600; margin-bottom: 8px; }
+        .capability-desc { font-size: 0.8125rem; color: var(--text-muted); }
+
+        .cta-section { padding: 100px 0; text-align: center; position: relative; }
+        .cta-section::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 300px; background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0, 212, 170, 0.1) 0%, transparent 70%); pointer-events: none; }
+        .cta-section .container { position: relative; }
+        .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+        .cta-section p { color: var(--text-secondary); margin-bottom: 32px; }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+
+        footer { padding: 48px 0 24px; border-top: 1px solid var(--border); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8125rem; }
+        .footer-copy { font-size: 0.75rem; color: var(--text-muted); }
+
+        @media (max-width: 1024px) {
+            .feature-block { grid-template-columns: 1fr; gap: 48px; }
+            .feature-block.reverse { direction: ltr; }
+            .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 140px 0 60px; }
+            .capabilities-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-mark">
-                    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <span class="logo-text">Kladd</span>
-            </a>
+        <div class="nav-inner">
+            <a href="/" class="logo"><img src="logo.png" alt="Kladd" class="logo-img"></a>
             <div class="nav-links">
-                <a href="features.html" class="active">Features</a>
+                <a href="/#products">Products</a>
                 <a href="pricing.html">Pricing</a>
-                <a href="frameworks/soc2.html">SOC 2</a>
-                <a href="frameworks/hipaa.html">HIPAA</a>
-                <a href="frameworks/iso27001.html">ISO 27001</a>
-                <a href="frameworks/gdpr.html">GDPR</a>
-                <a href="#" class="btn btn-secondary">Log in</a>
-                <a href="#" class="btn btn-primary">Start free</a>
+                <a href="/#frameworks">Frameworks</a>
+                <a href="#">Docs</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#" class="btn btn-ghost">Sign in</a>
+                <a href="#" class="btn btn-primary">Start free trial</a>
             </div>
         </div>
     </nav>
 
-    <main>
-        <!-- Page Header -->
-        <header class="page-header">
-            <div class="container">
-                <div class="page-header-eyebrow">Features</div>
-                <h1>Everything you need to get compliant</h1>
-                <p>From automated evidence collection to AI-generated policies, Kladd handles the hard parts so you can focus on building.</p>
-            </div>
-        </header>
+    <section class="hero">
+        <div class="container">
+            <h1>Features that simplify compliance</h1>
+            <p class="hero-subtitle">From AI-powered policy generation to continuous monitoring, Kladd has everything you need to stay compliant.</p>
+        </div>
+    </section>
 
-        <!-- Feature 1: Automated Evidence Collection -->
-        <section class="section section-border">
-            <div class="container">
-                <div class="grid-2" style="gap: 80px; align-items: center;">
-                    <div>
-                        <div class="section-eyebrow">Automation</div>
-                        <h2 style="font-size: 2rem; margin-bottom: 20px;">Automated Evidence Collection</h2>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">
-                            Connect your tools once, and Kladd continuously collects evidence in the background. No more manual screenshots or chasing down team members.
-                        </p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>50+ integrations</strong>
-                                    <span>AWS, GitHub, Okta, Google Workspace, Slack, and more</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Continuous sync</strong>
-                                    <span>Evidence updates automatically as your systems change</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Smart mapping</strong>
-                                    <span>We map your evidence to the right controls automatically</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card" style="padding: 40px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; background: var(--success-muted); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                <svg width="20" height="20" fill="none" stroke="#22c55e" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
-                            </div>
-                            <span style="font-weight: 600;">Connected Integrations</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-primary); border-radius: 8px;">
-                                <span>AWS</span>
-                                <span style="color: var(--success); font-size: 0.8rem;">● Synced</span>
-                            </div>
-                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-primary); border-radius: 8px;">
-                                <span>GitHub</span>
-                                <span style="color: var(--success); font-size: 0.8rem;">● Synced</span>
-                            </div>
-                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-primary); border-radius: 8px;">
-                                <span>Okta</span>
-                                <span style="color: var(--success); font-size: 0.8rem;">● Synced</span>
-                            </div>
-                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-primary); border-radius: 8px;">
-                                <span>Google Workspace</span>
-                                <span style="color: var(--success); font-size: 0.8rem;">● Synced</span>
-                            </div>
-                        </div>
-                    </div>
+    <section class="section">
+        <div class="container">
+            <!-- AI Features -->
+            <div class="feature-block">
+                <div class="feature-content">
+                    <div class="section-eyebrow">AI-Powered</div>
+                    <h3>Generate policies in seconds, not weeks</h3>
+                    <p>Our AI understands your business context and generates customized, audit-ready policies. No more starting from scratch or using generic templates.</p>
+                    <ul class="feature-list">
+                        <li>12+ policy types (Access Control, Incident Response, etc.)</li>
+                        <li>Automatically mapped to your compliance frameworks</li>
+                        <li>Version control and change tracking built-in</li>
+                        <li>Employee acknowledgment workflows</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <svg width="200" height="160" viewBox="0 0 200 160">
+                        <rect x="20" y="20" width="160" height="120" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+                        <rect x="30" y="35" width="80" height="8" rx="2" fill="#00D4AA"/>
+                        <rect x="30" y="50" width="140" height="4" rx="2" fill="#333"/>
+                        <rect x="30" y="60" width="120" height="4" rx="2" fill="#333"/>
+                        <rect x="30" y="70" width="130" height="4" rx="2" fill="#333"/>
+                        <rect x="30" y="85" width="60" height="6" rx="2" fill="#00D4AA" opacity="0.3"/>
+                        <rect x="30" y="100" width="140" height="4" rx="2" fill="#333"/>
+                        <rect x="30" y="110" width="100" height="4" rx="2" fill="#333"/>
+                        <circle cx="160" cy="40" r="15" fill="#00D4AA" opacity="0.2"/>
+                        <text x="160" y="45" text-anchor="middle" fill="#00D4AA" font-size="14">AI</text>
+                    </svg>
                 </div>
             </div>
-        </section>
 
-        <!-- Feature 2: AI Policy Generation -->
-        <section class="section section-alt">
-            <div class="container">
-                <div class="grid-2" style="gap: 80px; align-items: center;">
-                    <div class="card" style="padding: 40px; order: -1;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; background: var(--primary-glow); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                <svg width="20" height="20" fill="none" stroke="#169989" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
-                            </div>
-                            <span style="font-weight: 600;">AI Policy Generator</span>
-                        </div>
-                        <div style="background: var(--bg-primary); border-radius: 8px; padding: 20px; margin-bottom: 16px;">
-                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Generating...</div>
-                            <div style="font-weight: 500; margin-bottom: 8px;">Information Security Policy</div>
-                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
-                                This policy establishes the security framework for Acme Corp, ensuring the confidentiality, integrity, and availability of all information assets...
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 8px;">
-                            <div style="padding: 6px 12px; background: var(--success-muted); color: var(--success); font-size: 0.75rem; font-weight: 500; border-radius: 6px;">Customized to your company</div>
-                            <div style="padding: 6px 12px; background: var(--primary-glow); color: var(--primary-light); font-size: 0.75rem; font-weight: 500; border-radius: 6px;">SOC 2 compliant</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="section-eyebrow">AI-Powered</div>
-                        <h2 style="font-size: 2rem; margin-bottom: 20px;">AI Policy Generation</h2>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">
-                            Generate all required security policies in minutes, not weeks. Our AI creates policies tailored to your company, industry, and compliance requirements.
-                        </p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>40+ policy templates</strong>
-                                    <span>Information security, access control, incident response, and more</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Company-specific</strong>
-                                    <span>Policies are tailored to your tech stack and team size</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Version control</strong>
-                                    <span>Track changes and maintain policy history</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <!-- Continuous Monitoring -->
+            <div class="feature-block reverse">
+                <div class="feature-content">
+                    <div class="section-eyebrow">Continuous Monitoring</div>
+                    <h3>Real-time compliance visibility</h3>
+                    <p>Connect your infrastructure and get instant visibility into your compliance posture. No more point-in-time assessments or manual checks.</p>
+                    <ul class="feature-list">
+                        <li>50+ integrations (AWS, Azure, GCP, GitHub, Okta...)</li>
+                        <li>Automatic evidence collection</li>
+                        <li>Real-time alerts for compliance drift</li>
+                        <li>Historical compliance trends</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <svg width="200" height="160" viewBox="0 0 200 160">
+                        <rect x="20" y="20" width="160" height="120" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+                        <circle cx="100" cy="75" r="40" fill="none" stroke="#333" stroke-width="6"/>
+                        <circle cx="100" cy="75" r="40" fill="none" stroke="#00D4AA" stroke-width="6" stroke-dasharray="220" stroke-dashoffset="30" transform="rotate(-90 100 75)"/>
+                        <text x="100" y="70" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">87%</text>
+                        <text x="100" y="85" text-anchor="middle" fill="#666" font-size="8">COMPLIANT</text>
+                    </svg>
                 </div>
             </div>
-        </section>
 
-        <!-- Feature 3: Real-Time Monitoring -->
-        <section class="section section-border">
-            <div class="container">
-                <div class="grid-2" style="gap: 80px; align-items: center;">
-                    <div>
-                        <div class="section-eyebrow">Monitoring</div>
-                        <h2 style="font-size: 2rem; margin-bottom: 20px;">Real-Time Compliance Dashboard</h2>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">
-                            See your compliance posture at a glance. Track progress across all controls and frameworks with a live dashboard that updates as your systems change.
-                        </p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Compliance score</strong>
-                                    <span>Know exactly how ready you are for an audit</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Control breakdown</strong>
-                                    <span>See passing, failing, and in-progress controls</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Progress tracking</strong>
-                                    <span>Monitor improvement over time with historical data</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card" style="padding: 40px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                            <span style="font-weight: 600;">Compliance Score</span>
-                            <span style="background: var(--success-muted); color: var(--success); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Audit Ready</span>
-                        </div>
-                        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px;">
-                            <span style="font-size: 4rem; font-weight: 700; color: var(--success);">87%</span>
-                            <span style="color: var(--text-muted);">overall</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 16px;">
-                            <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 6px;">
-                                    <span>Access Control</span>
-                                    <span style="color: var(--success);">100%</span>
-                                </div>
-                                <div style="height: 6px; background: var(--bg-primary); border-radius: 3px; overflow: hidden;">
-                                    <div style="width: 100%; height: 100%; background: var(--success); border-radius: 3px;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 6px;">
-                                    <span>Data Protection</span>
-                                    <span style="color: var(--warning);">90%</span>
-                                </div>
-                                <div style="height: 6px; background: var(--bg-primary); border-radius: 3px; overflow: hidden;">
-                                    <div style="width: 90%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 6px;">
-                                    <span>Risk Management</span>
-                                    <span style="color: var(--success);">100%</span>
-                                </div>
-                                <div style="height: 6px; background: var(--bg-primary); border-radius: 3px; overflow: hidden;">
-                                    <div style="width: 100%; height: 100%; background: var(--success); border-radius: 3px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Evidence Collection -->
+            <div class="feature-block">
+                <div class="feature-content">
+                    <div class="section-eyebrow">Evidence Management</div>
+                    <h3>Evidence collection on autopilot</h3>
+                    <p>Stop chasing screenshots and exporting logs. Kladd automatically collects and organizes evidence from your connected systems.</p>
+                    <ul class="feature-list">
+                        <li>Auto-collected from 50+ integrations</li>
+                        <li>Smart matching to controls</li>
+                        <li>Expiration tracking and alerts</li>
+                        <li>Auditor-ready export packages</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <svg width="200" height="160" viewBox="0 0 200 160">
+                        <rect x="20" y="20" width="160" height="120" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+                        <rect x="35" y="40" width="50" height="35" rx="4" fill="#1a1a1a" stroke="#333"/>
+                        <text x="60" y="62" text-anchor="middle" fill="#666" font-size="8">AWS</text>
+                        <rect x="95" y="40" width="50" height="35" rx="4" fill="#1a1a1a" stroke="#333"/>
+                        <text x="120" y="62" text-anchor="middle" fill="#666" font-size="8">GitHub</text>
+                        <rect x="65" y="95" width="70" height="35" rx="4" fill="#00D4AA" fill-opacity="0.15" stroke="#00D4AA"/>
+                        <text x="100" y="117" text-anchor="middle" fill="#00D4AA" font-size="8">Evidence</text>
+                        <line x1="60" y1="75" x2="85" y2="95" stroke="#333" stroke-width="1"/>
+                        <line x1="120" y1="75" x2="115" y2="95" stroke="#333" stroke-width="1"/>
+                    </svg>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Feature 4: Drift Detection -->
-        <section class="section section-alt">
-            <div class="container">
-                <div class="grid-2" style="gap: 80px; align-items: center;">
-                    <div class="card" style="padding: 40px; order: -1;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; background: rgba(239, 68, 68, 0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                <svg width="20" height="20" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
-                            </div>
-                            <span style="font-weight: 600;">Drift Alerts</span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <div style="padding: 16px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                    <span style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></span>
-                                    <span style="font-weight: 500; font-size: 0.9rem;">MFA Disabled</span>
-                                </div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">User john@acme.com disabled MFA 2 hours ago</div>
-                            </div>
-                            <div style="padding: 16px; background: var(--warning-muted); border: 1px solid rgba(234, 179, 8, 0.2); border-radius: 8px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                    <span style="width: 8px; height: 8px; background: #eab308; border-radius: 50%;"></span>
-                                    <span style="font-weight: 500; font-size: 0.9rem;">Public S3 Bucket</span>
-                                </div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Bucket "uploads-prod" is now publicly accessible</div>
-                            </div>
-                            <div style="padding: 16px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                    <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%;"></span>
-                                    <span style="font-weight: 500; font-size: 0.9rem;">Issue Resolved</span>
-                                </div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">Branch protection re-enabled on main</div>
-                            </div>
-                        </div>
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-eyebrow">All Capabilities</div>
+                <h2 class="section-title">Everything you need in one platform</h2>
+                <p class="section-desc">From compliance to security, Kladd has you covered.</p>
+            </div>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon accent">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
-                    <div>
-                        <div class="section-eyebrow">Alerts</div>
-                        <h2 style="font-size: 2rem; margin-bottom: 20px;">Drift Detection & Alerts</h2>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">
-                            Get notified the moment something changes. When MFA gets disabled, an S3 bucket goes public, or branch protection is removed — we catch it instantly.
-                        </p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Instant notifications</strong>
-                                    <span>Get alerts via Slack, email, or in-app</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Remediation guidance</strong>
-                                    <span>Step-by-step instructions to fix each issue</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Never drift again</strong>
-                                    <span>Stay compliant continuously, not just at audit time</span>
-                                </div>
-                            </li>
-                        </ul>
+                    <h4 class="capability-title">Compliance Scoring</h4>
+                    <p class="capability-desc">Real-time compliance score with control-level detail.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon blue">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
+                    <h4 class="capability-title">Gap Analysis</h4>
+                    <p class="capability-desc">AI-powered gap detection with remediation steps.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon purple">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+                    </div>
+                    <h4 class="capability-title">Secrets Management</h4>
+                    <p class="capability-desc">Unified view across all your secret stores.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon amber">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                    </div>
+                    <h4 class="capability-title">Vendor Risk</h4>
+                    <p class="capability-desc">Track third-party security with automated questionnaires.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon accent">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                    </div>
+                    <h4 class="capability-title">Cloud Posture</h4>
+                    <p class="capability-desc">Find misconfigurations across AWS, Azure, GCP.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon blue">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    </div>
+                    <h4 class="capability-title">Auditor Portal</h4>
+                    <p class="capability-desc">Collaborate with auditors in a secure portal.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon purple">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    </div>
+                    <h4 class="capability-title">Team Management</h4>
+                    <p class="capability-desc">Assign owners, track tasks, manage access.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon amber">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                    </div>
+                    <h4 class="capability-title">50+ Integrations</h4>
+                    <p class="capability-desc">Connect all your tools for automated evidence.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Feature 5: Auditor Portal -->
-        <section class="section section-border">
-            <div class="container">
-                <div class="grid-2" style="gap: 80px; align-items: center;">
-                    <div>
-                        <div class="section-eyebrow">Audit</div>
-                        <h2 style="font-size: 2rem; margin-bottom: 20px;">Auditor Portal</h2>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.7;">
-                            Give your auditor secure, read-only access to all evidence. Everything organized, labeled, and ready for review. Make their job easy — and yours.
-                        </p>
-                        <ul class="feature-list">
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>One-click sharing</strong>
-                                    <span>Generate a secure link for your auditor</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Organized evidence</strong>
-                                    <span>Evidence mapped to controls, ready for review</span>
-                                </div>
-                            </li>
-                            <li>
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                                <div>
-                                    <strong>Export packages</strong>
-                                    <span>Download complete evidence packages as PDF or ZIP</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card" style="padding: 40px;">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <div style="width: 40px; height: 40px; background: var(--primary-glow); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                <svg width="20" height="20" fill="none" stroke="#169989" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
-                            </div>
-                            <span style="font-weight: 600;">Auditor Access</span>
-                        </div>
-                        <div style="padding: 20px; background: var(--bg-primary); border-radius: 8px; margin-bottom: 16px;">
-                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Share Link</div>
-                            <div style="display: flex; gap: 8px;">
-                                <div style="flex: 1; padding: 10px 14px; background: var(--bg-secondary); border-radius: 6px; font-size: 0.85rem; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                    https://app.kladd.io/audit/acme-corp-2026
-                                </div>
-                                <button style="padding: 10px 14px; background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer;">Copy</button>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 16px; font-size: 0.85rem; color: var(--text-muted);">
-                            <span style="display: flex; align-items: center; gap: 6px;">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
-                                Read-only
-                            </span>
-                            <span style="display: flex; align-items: center; gap: 6px;">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                Expires in 30 days
-                            </span>
-                        </div>
-                    </div>
-                </div>
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to experience the difference?</h2>
+            <p>Start your free trial and see how Kladd simplifies compliance.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+                <a href="#" class="btn btn-secondary btn-large">Book a demo</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- All Features Grid -->
-        <section class="section section-alt">
-            <div class="container">
-                <div class="section-header">
-                    <div class="section-eyebrow">And More</div>
-                    <h2>Everything else included</h2>
-                    <p>All the tools you need to manage compliance from start to finish.</p>
-                </div>
-                <div class="grid-3">
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg>
-                        </div>
-                        <h3>Task Management</h3>
-                        <p>Assign remediation tasks to team members and track completion.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>
-                        </div>
-                        <h3>Team Collaboration</h3>
-                        <p>Invite your whole team. Role-based access controls included.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
-                        </div>
-                        <h3>Reports & Analytics</h3>
-                        <p>Generate compliance reports for leadership and stakeholders.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" /></svg>
-                        </div>
-                        <h3>Vendor Management</h3>
-                        <p>Track and assess the security posture of your vendors.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
-                        </div>
-                        <h3>Risk Register</h3>
-                        <p>Document, assess, and track risks across your organization.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
-                        </div>
-                        <h3>Access Reviews</h3>
-                        <p>Periodic access reviews with automated reminders and tracking.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta">
-            <div class="container">
-                <h2>Ready to simplify compliance?</h2>
-                <p>Start your free trial today. No credit card required.</p>
-                <div class="cta-buttons">
-                    <a href="#" class="btn btn-primary btn-large">Start free trial →</a>
-                    <a href="#" class="btn btn-secondary btn-large">Book a demo</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <div class="logo-mark">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <span class="logo-text">Kladd</span>
-                    </a>
-                    <p>SOC 2 + HIPAA compliance on autopilot. Get audit-ready in weeks.</p>
-                </div>
-                <div class="footer-column">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="features.html">Features</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Changelog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Frameworks</h4>
-                    <ul>
-                        <li><a href="frameworks/soc2.html">SOC 2</a></li>
-                        <li><a href="frameworks/hipaa.html">HIPAA</a></li>
-                        <li><a href="frameworks/iso27001.html">ISO 27001</a></li>
-                        <li><a href="frameworks/gdpr.html">GDPR</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Status</a></li>
-                        <li><a href="#">Security</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 Kladd, Inc.</p>
+            <div class="footer-content">
                 <div class="footer-links">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Security</a>
+                    <a href="/">Home</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="integrations.html">Integrations</a>
+                    <a href="/#frameworks">Frameworks</a>
                 </div>
+                <div class="footer-copy">© 2026 Kladd. A CorSynq platform.</div>
             </div>
         </div>
     </footer>
