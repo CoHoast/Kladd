@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCI-DSS Compliance Automation — Kladd</title>
+    <meta name="description" content="Automate PCI-DSS v4.0 compliance. Protect cardholder data with continuous monitoring, automated evidence collection, and audit-ready reports.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #000000;
+            --bg-card: #111111;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(255, 255, 255, 0.15);
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #00D4AA;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 28px; width: auto; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta { display: flex; gap: 12px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-ghost { background: transparent; color: var(--text-secondary); }
+        .btn-ghost:hover { color: var(--text); }
+        .btn-primary { background: var(--text); color: var(--bg); }
+        .btn-primary:hover { background: #e5e5e5; }
+        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border-bright); }
+        .btn-large { padding: 14px 28px; font-size: 0.9375rem; }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 600px;
+            background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero .container { position: relative; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .hero-badge-framework {
+            background: var(--purple);
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+        .hero-cta { display: flex; gap: 12px; margin-bottom: 60px; }
+
+        /* Stats */
+        .stats-bar {
+            display: flex;
+            gap: 48px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--purple); }
+        .stat-label { font-size: 0.8125rem; color: var(--text-muted); }
+
+        /* Content Sections */
+        .section { padding: 100px 0; }
+        .section-alt { background: #0a0a0a; }
+        .section-header { margin-bottom: 48px; }
+        .section-eyebrow {
+            font-size: 0.75rem;
+            color: var(--purple);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Requirements Grid */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .requirement-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .requirement-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--purple);
+            color: white;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .requirement-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .requirement-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .feature-icon svg { width: 22px; height: 22px; color: var(--purple); }
+        .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .feature-desc { font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* CTA */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 300px;
+            background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-section .container { position: relative; }
+        .cta-section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
+        .cta-section p { color: var(--text-secondary); margin-bottom: 32px; }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+
+        /* Footer */
+        footer {
+            padding: 48px 0 24px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8125rem; }
+        .footer-links a:hover { color: var(--text); }
+        .footer-copy { font-size: 0.75rem; color: var(--text-muted); }
+
+        @media (max-width: 1024px) {
+            .requirements-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 140px 0 80px; }
+            .stats-bar { flex-direction: column; gap: 24px; }
+            .requirements-grid, .features-grid { grid-template-columns: 1fr; }
+            .hero-cta, .cta-buttons { flex-direction: column; align-items: flex-start; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo"><img src="../logo.png" alt="Kladd" class="logo-img"></a>
+            <div class="nav-links">
+                <a href="/#products">Products</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/#frameworks">Frameworks</a>
+                <a href="#">Docs</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#" class="btn btn-ghost">Sign in</a>
+                <a href="#" class="btn btn-primary">Start free trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="hero-badge-framework">PCI-DSS v4.0</span>
+                Payment Card Industry Data Security Standard
+            </div>
+            <h1>Protect cardholder data with automated PCI compliance</h1>
+            <p class="hero-subtitle">Get PCI-DSS v4.0 certified faster with continuous monitoring, automated evidence collection, and pre-built controls mapped to all 12 requirements.</p>
+            <div class="hero-cta">
+                <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+                <a href="#" class="btn btn-secondary btn-large">Talk to sales</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="container" style="display: flex; gap: 48px;">
+            <div class="stat">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Requirements</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">300+</div>
+                <div class="stat-label">Sub-requirements</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Weeks avg time</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">80%</div>
+                <div class="stat-label">Auto-collected evidence</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">PCI-DSS v4.0 Requirements</div>
+                <h2 class="section-title">All 12 requirements, fully automated</h2>
+                <p class="section-desc">Kladd maps controls to every PCI-DSS requirement, collecting evidence automatically from your connected systems.</p>
+            </div>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-number">1</div>
+                    <h3 class="requirement-title">Network Security Controls</h3>
+                    <p class="requirement-desc">Install and maintain network security controls to protect cardholder data.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">2</div>
+                    <h3 class="requirement-title">Secure Configurations</h3>
+                    <p class="requirement-desc">Apply secure configurations to all system components.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">3</div>
+                    <h3 class="requirement-title">Protect Account Data</h3>
+                    <p class="requirement-desc">Protect stored account data with encryption and key management.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">4</div>
+                    <h3 class="requirement-title">Encrypt Transmissions</h3>
+                    <p class="requirement-desc">Protect cardholder data with strong cryptography during transmission.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">5</div>
+                    <h3 class="requirement-title">Malware Protection</h3>
+                    <p class="requirement-desc">Protect systems and networks from malicious software.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">6</div>
+                    <h3 class="requirement-title">Secure Development</h3>
+                    <p class="requirement-desc">Develop and maintain secure systems and software.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">7</div>
+                    <h3 class="requirement-title">Access Control</h3>
+                    <p class="requirement-desc">Restrict access to cardholder data by business need to know.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">8</div>
+                    <h3 class="requirement-title">User Identification</h3>
+                    <p class="requirement-desc">Identify users and authenticate access to system components.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">9</div>
+                    <h3 class="requirement-title">Physical Security</h3>
+                    <p class="requirement-desc">Restrict physical access to cardholder data.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">10</div>
+                    <h3 class="requirement-title">Logging & Monitoring</h3>
+                    <p class="requirement-desc">Log and monitor access to network resources and cardholder data.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">11</div>
+                    <h3 class="requirement-title">Security Testing</h3>
+                    <p class="requirement-desc">Test security of systems and networks regularly.</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-number">12</div>
+                    <h3 class="requirement-title">Security Policies</h3>
+                    <p class="requirement-desc">Support information security with organizational policies and programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Features</div>
+                <h2 class="section-title">Everything you need for PCI compliance</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <h3 class="feature-title">Pre-mapped PCI Controls</h3>
+                    <p class="feature-desc">300+ controls mapped to all PCI-DSS v4.0 requirements with automated testing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                    </div>
+                    <h3 class="feature-title">Continuous Monitoring</h3>
+                    <p class="feature-desc">Real-time compliance monitoring across your cardholder data environment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    </div>
+                    <h3 class="feature-title">QSA-Ready Reports</h3>
+                    <p class="feature-desc">Generate evidence packages and reports formatted for QSA assessments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                    <h3 class="feature-title">Encryption Monitoring</h3>
+                    <p class="feature-desc">Track encryption status for data at rest and in transit across all systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to simplify PCI-DSS compliance?</h2>
+            <p>Start your free trial and get audit-ready in weeks.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+                <a href="#" class="btn btn-secondary btn-large">Talk to sales</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/#pricing">Pricing</a>
+                    <a href="soc2.html">SOC 2</a>
+                    <a href="hipaa.html">HIPAA</a>
+                    <a href="iso27001.html">ISO 27001</a>
+                </div>
+                <div class="footer-copy">© 2026 Kladd. A CorSynq platform.</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
