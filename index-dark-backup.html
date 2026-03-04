@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kladd — Compliance & Security Platform</title>
+    <meta name="description" content="The complete compliance and security platform. SOC 2, HIPAA, PCI-DSS, ISO 27001 compliance plus secrets management, vendor risk, and cloud security — all in one.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #000000;
+            --bg-elevated: #0a0a0a;
+            --bg-card: #111111;
+            --bg-card-hover: #161616;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(255, 255, 255, 0.15);
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #00D4AA;
+            --accent-secondary: #0066FF;
+            --purple: #8B5CF6;
+            --amber: #F59E0B;
+            --rose: #F43F5E;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 28px; width: auto; }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta { display: flex; gap: 12px; align-items: center; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.15s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-ghost { background: transparent; color: var(--text-secondary); }
+        .btn-ghost:hover { color: var(--text); }
+
+        .btn-primary { background: var(--text); color: var(--bg); }
+        .btn-primary:hover { background: #e5e5e5; }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border-bright);
+        }
+        .btn-secondary:hover { background: var(--bg-card); border-color: var(--text-muted); }
+
+        .btn-large { padding: 14px 28px; font-size: 0.9375rem; }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 700px;
+            background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0, 212, 170, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero .container { position: relative; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .hero-badge-new {
+            background: var(--accent);
+            color: var(--bg);
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
+        }
+
+        .hero-cta { display: flex; gap: 12px; justify-content: center; margin-bottom: 60px; }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 4px; }
+        .hero-stat-label { font-size: 0.8125rem; color: var(--text-muted); }
+
+        /* Logos */
+        .logos {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logos-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 28px;
+        }
+
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            opacity: 0.4;
+        }
+
+        .logo-item { font-size: 1.125rem; font-weight: 600; color: var(--text); }
+
+        /* Products Section */
+        .products-section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 64px;
+        }
+
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Product Cards */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-2px);
+        }
+
+        .product-card.featured {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .product-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .product-icon.accent { background: rgba(0, 212, 170, 0.1); }
+        .product-icon.blue { background: rgba(0, 102, 255, 0.1); }
+        .product-icon.purple { background: rgba(139, 92, 246, 0.1); }
+        .product-icon.amber { background: rgba(245, 158, 11, 0.1); }
+        .product-icon.rose { background: rgba(244, 63, 94, 0.1); }
+
+        .product-icon svg { width: 24px; height: 24px; }
+        .product-icon.accent svg { color: var(--accent); }
+        .product-icon.blue svg { color: var(--accent-secondary); }
+        .product-icon.purple svg { color: var(--purple); }
+        .product-icon.amber svg { color: var(--amber); }
+        .product-icon.rose svg { color: var(--rose); }
+
+        .product-badge {
+            display: inline-flex;
+            font-size: 0.625rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .product-badge.core { background: var(--accent); color: var(--bg); }
+        .product-badge.addon { background: var(--bg-elevated); color: var(--text-muted); border: 1px solid var(--border); }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .product-features {
+            list-style: none;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            padding: 4px 0;
+        }
+
+        .product-features li::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        .product-visual {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Frameworks Section */
+        .frameworks-section {
+            padding: 120px 0;
+            background: var(--bg-elevated);
+        }
+
+        .frameworks-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .framework-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .framework-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .framework-badge {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .framework-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 120px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px -10px rgba(0, 212, 170, 0.3);
+        }
+
+        .pricing-popular {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--bg);
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+        }
+
+        .pricing-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .pricing-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            margin-bottom: 20px;
+        }
+
+        .pricing-amount {
+            font-size: 2.25rem;
+            font-weight: 700;
+        }
+
+        .pricing-period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features svg {
+            width: 16px;
+            height: 16px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 120px 0;
+            background: var(--bg-elevated);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .testimonial-quote {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-name { font-size: 0.875rem; font-weight: 600; }
+        .testimonial-role { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 400px;
+            background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section .container { position: relative; }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+
+        /* Footer */
+        footer {
+            padding: 64px 0 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 16px;
+            max-width: 260px;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--text); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--text); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .product-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+            .frameworks-grid { grid-template-columns: repeat(3, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 140px 0 80px; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .frameworks-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .hero-cta, .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">
+                <img src="logo.png" alt="Kladd" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="#products">Products</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#frameworks">Frameworks</a>
+                <a href="#">Docs</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#" class="btn btn-ghost">Sign in</a>
+                <a href="#" class="btn btn-primary">Start free trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="hero-badge-new">New</span>
+                SecretOps — Unified secrets management now available
+            </div>
+            <h1>The complete compliance & security platform</h1>
+            <p class="hero-subtitle">SOC 2, HIPAA, PCI-DSS, and ISO 27001 compliance automation — plus secrets management, vendor risk, and cloud security posture. All in one platform.</p>
+            <div class="hero-cta">
+                <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+                <a href="#" class="btn btn-secondary btn-large">Book a demo</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">50%</div>
+                    <div class="hero-stat-label">Cheaper than Vanta</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">6</div>
+                    <div class="hero-stat-label">Integrated modules</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">50+</div>
+                    <div class="hero-stat-label">Integrations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logos -->
+    <section class="logos">
+        <div class="container">
+            <p class="logos-label">Trusted by security-conscious teams</p>
+            <div class="logos-grid">
+                <span class="logo-item">Acme</span>
+                <span class="logo-item">Quantum</span>
+                <span class="logo-item">Apex</span>
+                <span class="logo-item">Nova</span>
+                <span class="logo-item">Vertex</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Platform</div>
+                <h2 class="section-title">Six integrated modules, one platform</h2>
+                <p class="section-desc">Everything you need to manage compliance and security — from audit readiness to secrets management to vendor risk.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Compliance Engine - Featured -->
+                <div class="product-card featured">
+                    <div>
+                        <div class="product-icon accent">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <span class="product-badge core">Core</span>
+                        <h3 class="product-name">Compliance Engine</h3>
+                        <p class="product-desc">Multi-framework compliance automation. Map controls, collect evidence automatically, track your audit readiness in real-time.</p>
+                        <ul class="product-features">
+                            <li>SOC 2, HIPAA, PCI-DSS, ISO 27001</li>
+                            <li>Automated evidence collection</li>
+                            <li>Real-time compliance scoring</li>
+                            <li>Gap analysis & remediation</li>
+                        </ul>
+                    </div>
+                    <div class="product-visual">
+                        <svg width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="8"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="28" transform="rotate(-90 60 60)"/>
+                            <text x="60" y="55" text-anchor="middle" fill="var(--text)" font-size="24" font-weight="700">90%</text>
+                            <text x="60" y="72" text-anchor="middle" fill="var(--text-muted)" font-size="10" text-transform="uppercase">READY</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- SecretOps -->
+                <div class="product-card">
+                    <div class="product-icon purple">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                        </svg>
+                    </div>
+                    <span class="product-badge addon">Scale+</span>
+                    <h3 class="product-name">SecretOps</h3>
+                    <p class="product-desc">Unified secrets management across all your secret stores. AWS, Azure, GCP, Vault, and more.</p>
+                    <ul class="product-features">
+                        <li>Federated secret inventory</li>
+                        <li>Automated rotation</li>
+                        <li>Leak detection</li>
+                        <li>Access audit logs</li>
+                    </ul>
+                </div>
+
+                <!-- VendorRisk -->
+                <div class="product-card">
+                    <div class="product-icon blue">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                    </div>
+                    <span class="product-badge addon">Growth+</span>
+                    <h3 class="product-name">VendorRisk</h3>
+                    <p class="product-desc">Third-party risk management. Track vendor security posture and manage assessments.</p>
+                    <ul class="product-features">
+                        <li>Vendor profiles & scoring</li>
+                        <li>Security questionnaires</li>
+                        <li>Contract tracking</li>
+                        <li>Risk dashboards</li>
+                    </ul>
+                </div>
+
+                <!-- PolicyHub -->
+                <div class="product-card">
+                    <div class="product-icon amber">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <span class="product-badge addon">Growth+</span>
+                    <h3 class="product-name">PolicyHub</h3>
+                    <p class="product-desc">Policy lifecycle management. AI-generated templates, version control, and employee acknowledgments.</p>
+                    <ul class="product-features">
+                        <li>50+ policy templates</li>
+                        <li>AI policy generation</li>
+                        <li>Version history</li>
+                        <li>E-signatures</li>
+                    </ul>
+                </div>
+
+                <!-- CloudPosture -->
+                <div class="product-card">
+                    <div class="product-icon rose">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                        </svg>
+                    </div>
+                    <span class="product-badge addon">Scale+</span>
+                    <h3 class="product-name">CloudPosture</h3>
+                    <p class="product-desc">Cloud security posture management. Find misconfigurations across AWS, Azure, and GCP.</p>
+                    <ul class="product-features">
+                        <li>Multi-cloud scanning</li>
+                        <li>CIS benchmarks</li>
+                        <li>Auto-remediation</li>
+                        <li>Drift detection</li>
+                    </ul>
+                </div>
+
+                <!-- AuditReady -->
+                <div class="product-card">
+                    <div class="product-icon accent">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                    </div>
+                    <span class="product-badge addon">Scale+</span>
+                    <h3 class="product-name">AuditReady</h3>
+                    <p class="product-desc">Auditor collaboration portal. Share evidence, track requests, and streamline your audit process.</p>
+                    <ul class="product-features">
+                        <li>Auditor portal</li>
+                        <li>Evidence requests</li>
+                        <li>Secure sharing</li>
+                        <li>Audit timeline</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frameworks -->
+    <section class="frameworks-section" id="frameworks">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Frameworks</div>
+                <h2 class="section-title">Support for all major frameworks</h2>
+                <p class="section-desc">Cross-map controls and eliminate duplicate work. Get compliant with multiple frameworks simultaneously.</p>
+            </div>
+            <div class="frameworks-grid">
+                <a href="frameworks/soc2.html" class="framework-card">
+                    <div class="framework-badge">SOC 2</div>
+                    <div class="framework-name">SOC 2 Type II</div>
+                </a>
+                <a href="frameworks/hipaa.html" class="framework-card">
+                    <div class="framework-badge">HIPAA</div>
+                    <div class="framework-name">HIPAA</div>
+                </a>
+                <a href="#" class="framework-card">
+                    <div class="framework-badge">PCI</div>
+                    <div class="framework-name">PCI-DSS v4.0</div>
+                </a>
+                <a href="frameworks/iso27001.html" class="framework-card">
+                    <div class="framework-badge">ISO</div>
+                    <div class="framework-name">ISO 27001</div>
+                </a>
+                <a href="#" class="framework-card">
+                    <div class="framework-badge">HITRUST</div>
+                    <div class="framework-name">HITRUST CSF</div>
+                </a>
+                <a href="frameworks/gdpr.html" class="framework-card">
+                    <div class="framework-badge">GDPR</div>
+                    <div class="framework-name">GDPR</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-value">50%</div>
+                    <div class="stat-label">Cheaper than competitors</div>
+                </div>
+                <div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Faster audit prep</div>
+                </div>
+                <div>
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Integrations</div>
+                </div>
+                <div>
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Integrated modules</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Pricing</div>
+                <h2 class="section-title">Transparent pricing, no sales calls</h2>
+                <p class="section-desc">Start free for 14 days. No credit card required. Upgrade as you grow.</p>
+            </div>
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Starter</h3>
+                    <p class="pricing-desc">Getting your first certification</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$499</span>
+                        <span class="pricing-period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>1 framework</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>5 integrations</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Policy templates</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Email support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary pricing-cta">Start free trial</a>
+                </div>
+
+                <!-- Growth -->
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Growth</h3>
+                    <p class="pricing-desc">Growing compliance needs</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$999</span>
+                        <span class="pricing-period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>1 framework</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>15 integrations</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>PolicyHub</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>VendorRisk (10)</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Chat support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary pricing-cta">Start free trial</a>
+                </div>
+
+                <!-- Scale -->
+                <div class="pricing-card featured">
+                    <span class="pricing-popular">Popular</span>
+                    <h3 class="pricing-name">Scale</h3>
+                    <p class="pricing-desc">Multiple frameworks & security</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$2,499</span>
+                        <span class="pricing-period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>2 frameworks</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>50+ integrations</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>SecretOps</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>CloudPosture</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>AuditReady portal</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary pricing-cta">Start free trial</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Enterprise</h3>
+                    <p class="pricing-desc">Complex requirements</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$4,999</span>
+                        <span class="pricing-period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Unlimited frameworks</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Custom integrations</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>SSO / SAML</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Dedicated CSM</li>
+                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>SLA guarantee</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary pricing-cta">Contact sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Testimonials</div>
+                <h2 class="section-title">Trusted by security teams</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"Kladd replaced three separate tools we were using. Having compliance, secrets, and vendor risk in one platform is a game changer."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JM</div>
+                        <div>
+                            <div class="testimonial-name">James Mitchell</div>
+                            <div class="testimonial-role">CISO, TechFlow</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"We got HIPAA and SOC 2 certified in the same quarter. The cross-framework mapping saved us hundreds of hours."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SC</div>
+                        <div>
+                            <div class="testimonial-name">Sarah Chen</div>
+                            <div class="testimonial-role">VP Engineering, HealthSync</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"SecretOps finally gave us visibility into all our secrets across AWS, Vault, and GitHub. The leak detection alone is worth it."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MR</div>
+                        <div>
+                            <div class="testimonial-name">Michael Rodriguez</div>
+                            <div class="testimonial-role">Security Lead, DataVault</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to simplify compliance & security?</h2>
+            <p>Start your 14-day free trial. No credit card required.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-large">Start free trial</a>
+                <a href="#" class="btn btn-secondary btn-large">Book a demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <img src="logo.png" alt="Kladd" class="logo-img">
+                    </a>
+                    <p>The complete compliance & security platform. Automate audits, manage secrets, and reduce risk.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <a href="#">Compliance Engine</a>
+                    <a href="#">SecretOps</a>
+                    <a href="#">VendorRisk</a>
+                    <a href="#">PolicyHub</a>
+                    <a href="#">CloudPosture</a>
+                    <a href="#">AuditReady</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Frameworks</h4>
+                    <a href="frameworks/soc2.html">SOC 2</a>
+                    <a href="frameworks/hipaa.html">HIPAA</a>
+                    <a href="#">PCI-DSS</a>
+                    <a href="frameworks/iso27001.html">ISO 27001</a>
+                    <a href="#">HITRUST</a>
+                    <a href="frameworks/gdpr.html">GDPR</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Guides</a>
+                    <a href="#">API Reference</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Kladd. A CorSynq platform.</span>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
